@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Search-Results {% endblock title %}
+{% block body %}
+<!-- featured product area start -->
+<section class="feature-product section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- section title start -->
+                <div class="section-title text-center">
+                    <h2 class="title">Search products for {{query}}</h2>
+                </div>
+                <!-- section title start -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                
+                <div class="product-carousel-4_2 slick-row-10 slick-arrow-style">
+                    {% if productss.count != 0 %}
+                        {% for product in productss %}
+                        <!-- product item start -->
+                        <div class="product-item">
+                            <figure class="product-thumb">
+                                <a href="{% url 'productDetailsPage' product_id=product.product_id %}">
+                                    <img class="product-image" src="{{ product.product_image_set.first.image_path }}" alt="product">
+                                </a>
+                                <div class="product-badge">
+                                    <div class="product-label new">
+                                        <span>new</span>
+                                    </div>
+                                    <div class="product-label discount">
+                                        <span>10%</span>
+                                    </div>
+                                </div>
+                                <div class="button-group">
+                                    <a href="{% url 'addToWishlistPage' product_id=product.product_id %}" data-toggle="tooltip" data-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
+                                    <a href="compare.html" data-toggle="tooltip" data-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                    <a href="#" data-toggle="modal" data-target="#quick_view"><span data-toggle="tooltip" data-placement="left" title="Quick View"><i class="pe-7s-search"></i></span></a>
+                                </div>
+                                <div class="cart-hover">
+                                    <a href="{% url 'addToCartPage' product_id=product.product_id %}"><button class="btn btn-cart">add to cart</button></a>
+                                </div>
+                            </figure>
+                            <div class="product-caption text-center">
+                                <div class="product-identity">
+                                    <p class="manufacturer-name"><a href="{% url 'productDetailsPage' product_id=product.product_id %}">{{ product.product_name }}</a></p>
+                                </div>
+                                <ul class="color-categories">
+                                    <li>
+                                        <a class="c-lightblue" href="#" title="LightSteelblue"></a>
+                                    </li>
+                                    <li>
+                                        <a class="c-darktan" href="#" title="Darktan"></a>
+                                    </li>
+                                    <li>
+                                        <a class="c-grey" href="#" title="Grey"></a>
+                                    </li>
+                                    <li>
+                                        <a class="c-brown" href="#" title="Brown"></a>
+                                    </li>
+                                </ul>
+                                <h6 class="product-name">
+                                    <a href="{% url 'productDetailsPage' product_id=product.product_id %}">{{ product.product_name }}</a>
+                                </h6>
+                                <div class="price-box">
+                                    {% if product.product_discounted_price %}
+                                        <div class="price-box">
+                                            <span class="price-regular">Rs.{{product.product_discounted_price}}</span>
+                                            <span class="price-old"><del>Rs.{{product.product_price}}</del></span>
+                                        </div>
+                                    {%else %}
+                                        <div class="price-box">
+                                            <span class="price-regular">Rs.{{product.product_price}}</span>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>  
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>Sorry No products currently available!</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock body %}

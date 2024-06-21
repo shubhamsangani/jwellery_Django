@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Login-Register | Corano - Jwellery Store {% endblock title %}
+
+
+{% block body %}
+<main>
+    <!-- breadcrumb area start -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-wrap">
+                        <nav aria-label="breadcrumb">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'homePage' %}"><i class="fa fa-home"></i></a></li>
+                                <li class="breadcrumb-item" aria-current="page"><a href="{% url 'myAccountPage' %}">My-Account</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Add-Address</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb area end -->
+    <div class="row">
+    <div class="col-lg-8" style="padding-top: 20px; margin: 30px auto;">
+        <div class="checkout-billing-details-wrap">
+            <h5 class="checkout-title">Address</h5>
+            <div class="billing-form-wrap">
+                <form method="POST" action="{% url 'addressSubmitPage' %}" enctype="multipart/form-data">{% csrf_token %}
+                    <input type="hidden" name="form_type" value="addproduct">
+                    <!-- Existing fields -->
+                    <div class="single-input-item">
+                        <label for="house_no" class="required">House No</label>
+                        <input name="house_no" type="text" placeholder="House No"  value="{{ form_data.house_no }}" />
+                    </div>
+                    <div class="single-input-item">
+                        <label for="residence_name" class="required">Residence Name</label>
+                        <input name="residence_name" type="text" placeholder="Residence Name"  value="{{ form_data.residence_name }}" />
+                    </div>
+                    <div class="single-input-item">
+                        <label for="landmark" class="required">Landmark</label>
+                        <input name="landmark" type="text" placeholder="Landmark"  value="{{ form_data.landmark }}" />
+                    </div>
+                    <div class="single-input-item">
+                        <label for="city" class="required">Town / City</label>
+                        <input name="city" type="text" placeholder="Town"  value="{{ form_data.city }}" />
+                    </div>
+                    <div class="single-input-item">
+                        <label for="pin_code" class="required">Pin Code</label>
+                        <input name="pin_code" type="number" placeholder="122345"  value="{{ form_data.pin_code }}" />
+                    </div>
+                    <div class="single-input-item">
+                        <label for="state" class="required">State</label>
+                        <input name="state" type="text" placeholder="e.g. Gujarat" value="{{ form_data.state }}" />
+                    </div>
+                    <div class="single-input-item">
+                        <label for="country" class="required">Country</label>
+                        <input name="country" type="text" placeholder="XYZ" value="{{ form_data.country }}" />
+                    </div>
+                    <div class="single-input-item">
+                        <label for="deliver_to_whom" class="required">Deliver to whom</label>
+                        <input name="deliver_to_whom" type="text" placeholder="Name" value="{{  form_data.deliver_to_whom }}" />
+                    </div>
+                    <div class="single-input-item">
+                        <label for="deliver_to_contact" class="required">Deliver to Contact</label>
+                        <input name="deliver_to_contact" type="text" placeholder="Contact" value="{{form_data.deliver_to_contact}}" />
+                    </div>
+                    <!-- Submit Button -->
+                    <hr class="mb-4">
+                    <button class="btn btn-sqr" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
+{% endblock body %}

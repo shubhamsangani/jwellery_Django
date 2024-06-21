@@ -1,0 +1,56 @@
+{% extends "adminbase.html" %}
+{% block title %} Product Details | Corano - Jewelry Store {% endblock title %}
+
+{% block body %}
+<div class="login-reg-form-wrap sign-up-form">
+    <h2>Product Details</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Stock</th>
+                <th>Price</th>
+                <th>Discount</th>
+                <th>Brand</th>
+                <th>Colors</th>
+                <th>Sizes</th> 
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.product_name }}</td>
+                <td>{{ product.product_description }}</td>
+                <td>{{ product.product_stock }}</td>
+                <td>{{ product.product_price }}</td>
+                <td>{{ product.product_discount }}</td>
+                <td>{{ product.brand_name }}</td>
+                <td>
+                    <ul>
+                        {% for color in product.colors.all %}
+                        <li>{{ color.color_name }} - {{ color.color_stock }} (in stock)</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        {% for size in product.sizes.all %}
+                        <li>{{ size.size_value }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                    <!-- Form for deleting product -->
+                    <form method="post" action="{% url 'delete_product' product.product_id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-delete"><i class="fa fa-trash"></i></button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock body %}

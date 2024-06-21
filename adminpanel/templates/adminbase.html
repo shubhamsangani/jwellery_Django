@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+
+    <!-- CSS
+	============================================ -->   
+    
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,900" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/vendor/bootstrap.min.css' %}">
+    <!-- Pe-icon-7-stroke CSS -->
+    <link rel="stylesheet" href="{% static 'css/vendor/pe-icon-7-stroke.css' %}">
+    <!-- Font-awesome CSS -->
+    <link rel="stylesheet" href="{% static 'css/vendor/font-awesome.min.css' %}">
+    <!-- Slick slider css -->
+    <link rel="stylesheet" href="{% static 'css/plugins/slick.min.css' %}">
+    <!-- animate css -->
+    <link rel="stylesheet" href="{% static 'css/plugins/animate.css' %}">
+    <!-- Nice Select css -->
+    <link rel="stylesheet" href="{% static 'css/plugins/nice-select.css' %}">
+    <!-- jquery UI css -->
+    <link rel="stylesheet" href="{% static 'css/plugins/jqueryui.min.css' %}">
+    <!-- main style css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <main>
+        <!-- breadcrumb area start -->
+        <div class="breadcrumb-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="breadcrumb-wrap">
+                            <nav aria-label="breadcrumb">
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-home"></i></a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{admin_user_info.admin_user_name}}-account</li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- breadcrumb area end -->
+    
+        <!-- my account wrapper start -->
+        <div class="my-account-wrapper section-padding">
+            <div class="container">
+                <div class="section-bg-color">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- My Account Page Start -->
+                            <div class="myaccount-page-wrapper">
+                                <!-- My Account Tab Menu Start -->
+                                
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4">
+                                        <div class="myaccount-tab-menu nav" role="tablist">
+                                            <a href="{% url 'adminmyaccountPage' %}" data-toggle="tab"><i class="fa fa-dashboard"></i> Dashboard</a>
+                                            <!-- Products Dropdown -->
+                                            <div class="dropdown">
+                                                <a class="dropdown-toggle" href="#" role="button" id="productsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-cart-arrow-down"></i> Products
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="productsDropdown">
+                                                    <a class="dropdown-item" href="{% url "addproductPage" %}">Add Product</a>
+                                                    <a class="dropdown-item" href="{% url "deleteproductPage" %}">Delete Product</a>
+                                                    <a class="dropdown-item" href="{% url "viewproductPage" %}">View Product</a>
+                                                </div>
+                                            </div>
+                                            <!-- Products Dropdown -->
+                                            <div class="dropdown">
+                                                <a class="dropdown-toggle" href="#" role="button" id="productsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-cart-arrow-down"></i> User
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="productsDropdown">
+                                                    <a class="dropdown-item" href="#">Add User</a>
+                                                    <a class="dropdown-item" href="#">Delete User</a>
+                                                    <a class="dropdown-item" href="#">View user</a>
+                                                </div>
+                                            </div>
+                                            <a href="{% url 'adminlogout' %}"><i class="fa fa-sign-out"></i>logout</a>
+                                        </div>
+                                    </div>
+                                    {% block body %} {% endblock body %}
+                                </div>
+                            </div> <!-- My Account Page End -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+    <!-- Scroll to top start -->
+    <div class="scroll-top not-visible">
+        <i class="fa fa-angle-up"></i>
+    </div>
+    <!-- Scroll to Top End -->
+
+    <!-- footer area start -->
+    {% include 'footer.html'%}
+    <!-- footer area end -->
+
+    <!-- Quick view modal start -->
+    <div class="modal" id="quick_view">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- product details inner end -->
+                    <div class="product-details-inner">
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div class="product-large-slider">
+                                    <div class="pro-large-img img-zoom">
+                                        <img src="{% static 'img/product/product-details-img1.jpg' %}" alt="product-details" />
+                                    </div>
+                                    <div class="pro-large-img img-zoom">
+                                        <img src="{% static 'img/product/product-details-img2.jpg' %}" alt="product-details" />
+                                        
+                                    </div>
+                                    <div class="pro-large-img img-zoom">
+                                        <img src="{% static 'img/product/product-details-img3.jpg' %}" alt="product-details" />
+                                    </div>
+                                    <div class="pro-large-img img-zoom">
+                                        <img src="{% static 'img/product/product-details-img4.jpg' %}" alt="product-details" />
+                                    </div>
+                                    <div class="pro-large-img img-zoom">
+                                        <img src="{% static 'img/product/product-details-img5.jpg' %}" alt="product-details" />
+                                    </div>
+                                </div>
+                                <div class="pro-nav slick-row-10 slick-arrow-style">
+                                    <div class="pro-nav-thumb">
+                                        <img src="{% static 'img/product/product-details-img1.jpg' %}" alt="product-details" />
+                                    </div>
+                                    <div class="pro-nav-thumb">
+                                        <img src="{% static 'img/product/product-details-img2.jpg' %}" alt="product-details" />
+                                    </div>
+                                    <div class="pro-nav-thumb">
+                                        <img src="{% static 'img/product/product-details-img3.jpg' %}" alt="product-details" />
+                                    </div>
+                                    <div class="pro-nav-thumb">
+                                        <img src="{% static 'img/product/product-details-img4.jpg' %}" alt="product-details" />
+                                    </div>
+                                    <div class="pro-nav-thumb">
+                                        <img src="{% static 'img/product/product-details-img5.jpg' %}" alt="product-details" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="product-details-des">
+                                    <div class="manufacturer-name">
+                                        {% comment %} <a href="{% url 'productDetailsPage' %}">HasTech</a> {% endcomment %}
+                                    </div>
+                                    <h3 class="product-name">Handmade Golden Necklace</h3>
+                                    <div class="ratings d-flex">
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <div class="pro-review">
+                                            <span>1 Reviews</span>
+                                        </div>
+                                    </div>
+                                    <div class="price-box">
+                                        <span class="price-regular">$70.00</span>
+                                        <span class="price-old"><del>$90.00</del></span>
+                                    </div>
+                                    <h5 class="offer-text"><strong>Hurry up</strong>! offer ends in:</h5>
+                                    <div class="product-countdown" data-countdown="2022/02/20"></div>
+                                    <div class="availability">
+                                        <i class="fa fa-check-circle"></i>
+                                        <span>200 in stock</span>
+                                    </div>
+                                    <p class="pro-desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+                                        diam nonumy
+                                        eirmod tempor invidunt ut labore et dolore magna.</p>
+                                    <div class="quantity-cart-box d-flex align-items-center">
+                                        <h6 class="option-title">qty:</h6>
+                                        <div class="quantity">
+                                            <div class="pro-qty"><input type="text" value="1"></div>
+                                        </div>
+                                        <div class="action_link">
+                                            <a class="btn btn-cart2" href="#">Add to cart</a>
+                                        </div>
+                                    </div>
+                                    <div class="useful-links">
+                                        <a href="#" data-toggle="tooltip" title="Compare"><i
+                                                class="pe-7s-refresh-2"></i>compare</a>
+                                        <a href="#" data-toggle="tooltip" title="Wishlist"><i
+                                                class="pe-7s-like"></i>wishlist</a>
+                                    </div>
+                                    <div class="like-icon">
+                                        <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
+                                        <a class="twitter" href="#"><i class="fa fa-twitter"></i>tweet</a>
+                                        <a class="pinterest" href="#"><i class="fa fa-pinterest"></i>save</a>
+                                        <a class="google" href="#"><i class="fa fa-google-plus"></i>share</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- product details inner end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Quick view modal end -->
+
+    <!-- offcanvas mini cart start -->
+    <div class="offcanvas-minicart-wrapper">
+        <div class="minicart-inner">
+            <div class="offcanvas-overlay"></div>
+            <div class="minicart-inner-content">
+                <div class="minicart-close">
+                    <i class="pe-7s-close"></i>
+                </div>
+                <div class="minicart-content-box">
+                    <div class="minicart-item-wrapper">
+                        <ul>
+                            <li class="minicart-item">
+                                <div class="minicart-thumb">
+                                    {% comment %} <a href="{% url 'productDetailsPage' %}"> {% endcomment %}
+                                        <img src="{% static 'img/cart/cart-1.jpg' %}" alt="product" />
+                                    </a>
+                                </div>
+                                <div class="minicart-content">
+                                    <h3 class="product-name">
+                                        {% comment %} <a href="{% url 'productDetailsPage' %}">Dozen White Botanical Linen Dinner Napkins</a> {% endcomment %}
+                                    </h3>
+                                    <p>
+                                        <span class="cart-quantity">1 <strong>&times;</strong></span>
+                                        <span class="cart-price">$100.00</span>
+                                    </p>
+                                </div>
+                                <button class="minicart-remove"><i class="pe-7s-close"></i></button>
+                            </li>
+                            <li class="minicart-item">
+                                <div class="minicart-thumb">
+                                    {% comment %} <a href="{% url 'productDetailsPage' %}"> {% endcomment %}
+                                        <img src="{% static 'img/cart/cart-2.jpg' %}" alt="product" />
+                                    </a>
+                                </div>
+                                <div class="minicart-content">
+                                    <h3 class="product-name">
+                                        {% comment %} <a href="{% url 'productDetailsPage' %}">Dozen White Botanical Linen Dinner Napkins</a> {% endcomment %}
+                                    </h3>
+                                    <p>
+                                        <span class="cart-quantity">1 <strong>&times;</strong></span>
+                                        <span class="cart-price">$80.00</span>
+                                    </p>
+                                </div>
+                                <button class="minicart-remove"><i class="pe-7s-close"></i></button>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="minicart-pricing-box">
+                        <ul>
+                            <li>
+                                <span>sub-total</span>
+                                <span><strong>$300.00</strong></span>
+                            </li>
+                            <li>
+                                <span>Eco Tax (-2.00)</span>
+                                <span><strong>$10.00</strong></span>
+                            </li>
+                            <li>
+                                <span>VAT (20%)</span>
+                                <span><strong>$60.00</strong></span>
+                            </li>
+                            <li class="total">
+                                <span>total</span>
+                                <span><strong>$370.00</strong></span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="minicart-button">
+                        <a href="{% url 'cartPage' %}"><i class="fa fa-shopping-cart"></i> View Cart</a>
+                        <a href="{% url 'checkoutPage' %}"><i class="fa fa-share"></i> Checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- offcanvas mini cart end -->
+    <!-- JS
+============================================ -->
+
+    <!-- Modernizer JS -->
+    <script src="{% static 'js/vendor/modernizr-3.6.0.min.js' %}"></script>
+    <!-- jQuery JS -->
+    <script src="{% static 'js/vendor/jquery-3.3.1.min.js' %}"></script>
+    <!-- Popper JS -->
+    <script src="{% static 'js/vendor/popper.min.js' %}"></script>
+    <!-- Bootstrap JS -->
+    <script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
+    <!-- slick Slider JS -->
+    <script src="{% static 'js/plugins/slick.min.js' %}"></script>
+    <!-- Countdown JS -->
+    <script src="{% static 'js/plugins/countdown.min.js' %}"></script>
+    <!-- Nice Select JS -->
+    <script src="{% static 'js/plugins/nice-select.min.js' %}"></script>
+    <!-- jquery UI JS -->
+    <script src="{% static 'js/plugins/jqueryui.min.js' %}"></script>
+    <!-- Image zoom JS -->
+    <script src="{% static 'js/plugins/image-zoom.min.js' %}"></script>
+    <!-- Imagesloaded JS -->
+    <script src="{% static 'js/plugins/imagesloaded.pkgd.min.js' %}"></script>
+    <!-- Instagram feed JS -->
+    <script src="{% static 'js/plugins/instagramfeed.min.js' %}"></script>
+    <!-- mailchimp active js -->
+    <script src="{% static 'js/plugins/ajaxchimp.js' %}"></script>
+    <!-- contact form dynamic js -->
+    <script src="{% static 'js/plugins/ajax-mail.js' %}"></script>
+    <!-- google map api -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfmCVTjRI007pC1Yk2o2d_EhgkjTsFVN8"></script>
+    <!-- google map active js -->
+    <script src="{% static 'js/plugins/google-map.js' %}"></script>
+    <!-- Main JS -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

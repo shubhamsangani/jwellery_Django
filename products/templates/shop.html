@@ -1,0 +1,356 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Shop | Corano {% endblock title %}
+{% block body %}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<main>
+    <!-- breadcrumb area start -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-wrap">
+                        <nav aria-label="breadcrumb">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'homePage' %}"><i class="fa fa-home"></i></a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">shop</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb area end -->
+    <!-- page main wrapper start -->
+    <div class="shop-main-wrapper section-padding">
+        <div class="container">
+            <div class="row">
+                <!-- sidebar area start -->
+                <div class="col-lg-3 order-2 order-lg-1">
+                    <aside class="sidebar-wrapper">
+                        <!-- single sidebar start -->
+                        <div class="sidebar-single">
+                            <h5 class="sidebar-title">categories</h5>
+                            <div class="sidebar-body" id="filteredCategory">
+                                <ul class="checkbox-container categories-list">
+                                    {% for i in category_data %}
+                                    <li>
+                                        <div class="custom-control custom-checkbox">
+                                            {% csrf_token %}
+                                            <input type="checkbox" data-filter = 'category' class="custom-control-input" id="{{i.item_category_id}}" value="{{i.item_category_name}}">
+                                            <label class="custom-control-label" for="{{i.item_category_id}}">{{i.item_category_name}}</label>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div> 
+                        <!-- single sidebar end -->
+                        <!-- single sidebar start -->
+                        {% comment %} <div class="sidebar-single">
+                            <h5 class="sidebar-title">price</h5>
+                            <div class="sidebar-body">
+                                <div class="price-range-wrap">
+                                    <div class="price-range" data-min="1" data-max="1000"></div>
+                                    <div class="range-slider">
+                                        <form action="#" class="d-flex align-items-center justify-content-between">
+                                            <div class="price-input">
+                                                <label for="amount">Price: </label>
+                                                <input type="text" id="amount">
+                                            </div>
+                                            <button class="filter-btn">filter</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> {% endcomment %}
+                        <!-- single sidebar end -->
+                        <!-- single sidebar start -->
+                        <div class="sidebar-single">
+                            <h5 class="sidebar-title">Brand</h5>
+                            <div class="sidebar-body" id="filteredBrand">
+                                <ul class="checkbox-container categories-list">
+                                    {% for i in brand_data %}
+                                    <li>
+                                        <div class="custom-control custom-checkbox">
+                                            {% csrf_token %}
+                                            <input type="checkbox" data-filter = 'brand' class="custom-control-input" id="{{i.brand_id}}" value="{{i.brand_id}}" > 
+                                            <label class="custom-control-label" for="{{i.brand_id}}">{{i.brand_name}}</label>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- single sidebar end -->
+                        <!-- single sidebar start -->
+                        <div class="sidebar-single">
+                            <h5 class="sidebar-title">color</h5>
+                            <div class="sidebar-body">
+                                <ul class="checkbox-container categories-list">
+                                    {% for i in unique_color_values %}
+                                    <li>
+                                        <div class="custom-control custom-checkbox">
+                                            {% csrf_token %}
+                                            <input type="checkbox" data-filter = 'color' class="custom-control-input" id="{{i}}" value="{{i}}">
+                                            <label class= "custom-control-label" for="{{i}}">{{i}}</label>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- single sidebar end -->
+                        <!-- single sidebar start -->
+                        <div class="sidebar-single">
+                            <h5 class="sidebar-title">size</h5>
+                            <div class="sidebar-body">
+                                <ul class="checkbox-container categories-list">
+                                    {% for i in unique_size_values %}
+
+                                    <li>
+                                        <div class="custom-control custom-checkbox">
+                                            {% csrf_token %}
+                                            <input type="checkbox" data-filter = 'size' class="custom-control-input" id="{{i}}" value="{{i}}">
+                                            <label class="custom-control-label" for="{{i}}">{{i}}</label>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- single sidebar end -->
+                        <!-- single sidebar start -->
+                        <div class="sidebar-banner">
+                            <div class="img-container">
+                                <a href='{% url "shopPage" %}'>
+                                    <img src="{% static 'img/banner/sidebar-banner.jpg' %}" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <!-- single sidebar end -->
+                    </aside>
+                </div>
+                <!-- sidebar area end -->
+
+                <!-- shop main wrapper start -->
+                <div class="col-lg-9 order-1 order-lg-2">
+                    <div class="shop-product-wrapper">
+                        <!-- shop product top wrap start -->
+                        <div class="shop-top-bar">
+                            <div class="row align-items-center">
+                                <div class="col-lg-7 col-md-6 order-2 order-md-1">
+                                    <div class="top-bar-left">
+                                        <div class="product-amount">
+                                            <p>Showing 1–16 of 21 results</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 col-md-6 order-1 order-md-2">
+                                    <div class="top-bar-right">
+                                        <div class="product-short">
+                                            <p>Sort By : </p>
+                                            <select class="nice-select" name="sortby">
+                                                <option value="trending">Relevance</option>
+                                                <option value="sales">Name (A - Z)</option>
+                                                <option value="sales">Name (Z - A)</option>
+                                                <option value="rating">Price (Low &gt; High)</option>
+                                                <option value="date">Rating (Lowest)</option>
+                                                <option value="price-asc">Model (A - Z)</option>
+                                                <option value="price-asc">Model (Z - A)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- shop product top wrap start -->
+
+                        <!-- product item list wrapper start -->
+                        <div class="shop-product-wrap grid-view row mbn-30 prolist  " id = 'filteredProducts'>
+                        
+                            <!-- product single item start -->
+                            {% for i in products_data %}
+                                <div class="col-md-4 col-sm-6">
+                                    <!-- product grid start -->
+                                    <div class="product-item">
+                                        <figure class="product-thumb">
+                                            <a href="{% url 'productDetailsPage' product_id=i.product_id %}">
+                                                {% for j in image_data %}
+                                                {% if j.product_fk.product_id == i.product_id %}
+                                                <img class="product-image" src= '{{j.image_path}}' alt="product">
+                                                {% endif %}
+                                                {% endfor %}
+                                            </a>
+                                            <div class="product-badge">
+                                                <div class="product-label new">
+                                                    <span>new</span>
+                                                </div>
+                                                <div class="product-label discount">
+                                                    <span>{{i.product_discount}}%</span>
+                                                </div>
+                                            </div>
+                                            <div class="button-group">
+                                                <a href="{% url 'addToWishlistPage' product_id=i.product_id %}" data-toggle="tooltip"
+                                                    data-placement="left" title="Add to wishlist"><i
+                                                        class="pe-7s-like"></i></a>
+                                            </div>
+                                            <div class="cart-hover">
+                                                <a href="{% url 'addToCartPage' product_id=i.product_id %}"><button class="btn btn-cart">add to cart</button></a>
+                                            </div>
+                                        </figure>
+                                        <div class="product-caption text-center">
+                                            {% for j in product_brand_data %}
+                                            {% if j.product_fk.product_id == i.product_id %}
+                                            <div class="product-identity">
+                                                <p class="manufacturer-name"><a href="{% url 'productDetailsPage' product_id=i.product_id %}">{{j.brand_fk.brand_name}}</a></p>
+                                            </div>
+                                            {% endif %}
+                                            {% endfor %}
+                                            <ul class="color-categories">
+                                                {% for j in color_data %}
+                                                {% if j.product_fk.product_id == i.product_id %}
+                                                <li>
+                                                    <a class="c-darktan" href="#" title="{{j.color_name}}" style="background-color:{{j.color_name}};" ></a>
+                                                </li>
+                                                {% endif %}
+                                                {% endfor %}
+                                            </ul>
+                                            <h6 class="product-name">
+                                                <a href="{% url 'productDetailsPage' product_id=i.product_id %}">{{i.product_name}}</a>
+                                            </h6>
+                                            <div class="price-box">
+                                                <span class="price-regular">₹ {{i.product_discounted_price}}</span>
+                                                <span class="price-old"><del>₹ {{i.product_price}}</del></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- product grid end -->
+
+                                </div>  
+                            {% endfor %}
+
+                            
+                        </div>
+
+                        <!-- shop product top wrap end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- page main wrapper end -->
+</main>
+<script type="text/javascript">
+    window.CSRF_TOKEN = '{{ csrf_token }}'
+  </script>
+<script>
+
+$(document).ready(function(){
+    $(function(){
+        var rangeSlider = $(".price-range"),
+		amount = $("#amount"),
+		minPrice = rangeSlider.data('min'),
+		maxPrice = rangeSlider.data('max');
+	    rangeSlider.slider({
+		range: true,
+		min: minPrice,
+		max: maxPrice,
+		values: [minPrice, maxPrice],
+		slide: function (event, ui) {
+            amount.val("$" + ui.values[0] + " - $" + ui.values[1]);
+            var amountValue = amount.val();
+            var valuesArray = amountValue.match(/\d+/g).map(Number);
+            console.log(valuesArray)
+		}
+    });
+    });
+    $('.custom-control-input').on('click',function(){   
+        let filter_object = {}
+        $('.custom-control-input').each(function(){
+            var filter_key = $(this).attr('data-filter');
+            var filter_value = $(this).val();
+            filter_object[filter_key] = Array.from(document.querySelectorAll('input[data-filter=' +filter_key+ ']:checked')).map(function(element){
+                return element.value;
+            })
+            console.log("Filter Object:",filter_object)
+        })
+        var csrfToken = window.CSRF_TOKEN;
+        // Include CSRF token in request headers
+        var headers = {
+            'X-CSRFToken': csrfToken
+        };
+        $.ajax({
+            method: 'POST',
+            url: '{% url "filterProductPage" %}',
+            data: filter_object,
+            headers: headers, // Include headers in the request
+            dataType: 'json',
+            success: function(res){
+
+
+                $(".prolist").html(""); // Clear previous content
+
+                $.each(res["data"], function(index, item) {
+                    var productDetailsPageURL = '/product-details/' + item.product_id;
+                    var WishlistPageURL = '/addtowishlist/' + item.product_id;
+                    var AddtocartURL = '/addtocart/' + item.product_id
+                    $(".prolist").append(`
+                    <div class="col-md-4 col-sm-6">
+                        <!-- product grid start -->
+                        <div class="product-item">
+
+                            <figure class="product-thumb">
+                                <a href="${productDetailsPageURL}">
+                                    <img class="product-image" src="${item["product_image"]}">
+                                </a>
+                                
+                                <div class="product-badge">
+                                    <div class="product-label new">
+                                        <span>new</span>
+                                    </div>
+                                    <div class="product-label discount">
+                                        <span>${item["product_discount"]}%</span>
+                                    </div>
+                                </div>
+                                <div class="button-group">
+                                    <a href="${WishlistPageURL}" data-toggle="tooltip"
+                                        data-placement="left" title="Add to wishlist"><i
+                                            class="pe-7s-like"></i></a>
+                                </div>
+                                <div class="cart-hover">
+                                    <a href="${AddtocartURL}"><button class="btn btn-cart">add to cart</button></a>
+                                </div>
+                            </figure>
+                            <div class="product-caption text-center">
+                                <div class="product-identity">
+                                    <p class="manufacturer-name"><a
+                                            href='#'>${item["brand_name"]}</a></p>
+                                </div>
+                                <h6 class="product-name">
+                                    <a href='#'>${item["product_name"]}</a>
+                                </h6>
+                                <div class="price-box">
+                                    <span class="price-regular">₹ ${item["product_price"]} - {{i.product_discount}}</span>
+                                    <span class="price-old"><del>₹ ${item["product_price"]}</del></span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <!-- product grid end -->
+
+                    </div
+                    `)
+                });
+                
+            },
+            error: function(xhr, status, error){
+                console.error('Error:', error);
+            }
+        });  
+    })
+})
+</script>
+{% endblock body %}

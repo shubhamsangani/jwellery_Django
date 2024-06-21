@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 100px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+            margin-top: 20px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Successful!</h1>
+        <p>Your payment has been processed successfully.</p>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Products</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            {% for cart_item in cart_items %}
+            <tbody border='2px'>
+                <tr>
+                    <td>{{ cart_item.product_fk.product_name }}<strong></strong></a>
+                    </td>
+                    <td>{{ cart_item.items_quantity }}</td>
+                    <td>Rs.{{ cart_item.product_price_fk.final_charges }}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+            <tfoot>
+                <tr>
+                    <td>Sub Total</td>
+                    <td><strong>Rs. {{ subtotal }}</strong></td>
+                </tr>
+                <tr>
+                    <td>Shipping</td>
+                    <td class="d-flex justify-content-center">
+                        <ul class="shipping-type">
+                            <li>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="flatrate" name="shipping"
+                                        class="custom-control-input" checked />
+                                    <label class="custom-control-label" for="flatrate">Flat
+                                        Rate: Rs.70.00</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Total Amount</td>
+                    <td><strong>Rs. {{ total }}</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+        <a href="{% url 'homePage' %}" class="button">Continue Shopping</a>
+    </div>
+</body>
+</html>

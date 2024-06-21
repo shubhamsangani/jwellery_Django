@@ -1,0 +1,84 @@
+{% extends "adminbase.html" %}
+{% block title %} Login-Register | Corano - Jwellery Store {% endblock title %}
+
+
+{% block body %}
+<div class="login-reg-form-wrap sign-up-form">
+    <h5>Add product Form</h5>
+    <form method="post" enctype="multipart/form-data" >{% csrf_token %}
+        <input type="hidden" name="form_type" value="addproduct">
+        <div class="single-input-item">
+            <input name="product_name" type="text" placeholder="Product Name" required value="{{ form_data.product_name }}" />
+        </div>
+        <div class="single-input-item">
+            <input name="product_description" type="text" placeholder="Enter product description" required value="{{ form_data.product_description }}" />
+        </div>
+        <div class="single-input-item">
+            <input name="product_stock" type="text" placeholder="Enter product stock (available currently)" required value="{{ form_data.product_stock }}" />
+        </div>
+        <div class="single-input-item">
+            <input name="product_price" type="text" placeholder="Enter product price" required value="{{ form_data.product_price }}" />
+        </div>
+        <div class="single-input-item">
+            <input name="product_discount" type="text" placeholder="Enter product discount (if any in %)" required value="{{ form_data.product_discount }}" />
+        </div>
+        <div class="single-input-item">
+            <input name="product_extra_charges" type="text" placeholder="Enter extra charges if any" required value="{{ form_data.product_extra_charges }}" />
+        </div>
+        <div class="single-input-item">
+            <input name="product_size" type="text" placeholder="Enter product size" required value="{{ form_data.product_size }}" />
+            <p>(enter all sizes with spaces, dont use any other characters other than numbers)</p>
+        </div>
+        <div class="dropdown">
+            <a class="dropdown-toggle" role="button" id="productsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <p>Product colors available</p>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="productsDropdown">
+                <input type="checkbox" name="colors[]" value="red"> Red
+                <input type="text" name="color_stock_red" placeholder="Stock for Red"><br>
+                <input type="checkbox" name="colors[]" value="green"> Green
+                <input type="text" name="color_stock_green" placeholder="Stock for Green"><br>
+                <input type="checkbox" name="colors[]" value="blue"> Blue
+                <input type="text" name="color_stock_blue" placeholder="Stock for Blue"><br>
+                <input type="checkbox" name="colors[]" value="yellow"> Yellow
+                <input type="text" name="color_stock_yellow" placeholder="Stock for Yellow"><br>
+            </div>
+        </div>
+        <div>
+            <label>Select Category:</label><br>
+            <input type="radio" name="gender" value="men"> Men<br>
+            <input type="radio" name="gender" value="women"> Women<br>
+            <input type="radio" name="gender" value="kids"> Kids<br>
+            <br>   
+        </div>
+        <div>
+            <label>Select Item Category:</label><br>
+            <input type="radio" name="item" value="ring"> ring<br>
+            <input type="radio" name="item" value="bracelet"> bracelet<br>
+            <input type="radio" name="item" value="earring"> earring<br>
+            <input type="radio" name="item" value="necklace"> necklace<br>
+            <br>   
+        </div>
+        <script>
+            document.getElementById('product_image').addEventListener('change', function() {
+                var files = this.files;
+                var fileNames = '';
+                for (var i = 0; i < files.length; i++) {
+                    fileNames += files[i].name + ', ';
+                }
+                document.getElementById('selected_image_names').textContent = fileNames;
+            });
+        </script>
+
+        <div class="single-input-item">
+            <label for="product_image">Product Image:</label>
+            <input type="file" name="product_image" id="product_image" accept="image/*" multiple>
+            <p id="selected_image_names"></p>
+        </div>
+
+        <div class="single-input-item">
+            <button class="btn btn-sqr">Register</button>
+        </div>
+    </form>
+</div>
+{% endblock body %}
